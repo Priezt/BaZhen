@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="main.css">
+		<script src="lib/jquery-1.6.1.min.js"></script>
+		<script src="main.js"></script>
+		<script src="piece.js"></script>
+		<script src="set.js"></script>
+		<script src="run.js"></script>
+	</head>
+	<body>
+		<div id="switch_div">
+			<div id="set_switch" class="switch">Set</div>
+			<div id="run_switch" class="switch">Run</div>
+		</div>
+		<div id="set_ui" class="ui">
+			<canvas id="set_board" class="board">Browser does not support Canvas.</canvas>
+		</div>
+		<div id="run_ui" class="ui">
+			<canvas id="run_board" class="board">Browser does not support Canvas.</canvas><br>
+			<input type=button value="reset" id="run_reset">
+			<input type=button value="start" id="run_toggle">
+		</div>
+	</body>
+</html>

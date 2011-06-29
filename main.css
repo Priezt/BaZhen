@@ -1,0 +1,32 @@
+.board {
+	border-style: solid;
+	border-width: 3;
+	border-color: #888;
+}
+
+.ui {
+	text-align: center;
+	border-style: solid;
+	border-width: 5;
+	border-color: #CCC;
+}
+
+#switch_div {
+	text-align: center;
+}
+
+.switch{
+	cursor: pointer;
+	border-style: solid;
+	border-width: 3;
+	border-color: #ccc;
+	display: inline;
+	padding: 2;
+	margin: 2;
+}
+
+.switch_selected {
+	font-size: x-large;
+	text-decoration: bold;
+	cursor: default;
+}
