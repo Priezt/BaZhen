@@ -24,11 +24,13 @@ function switch_mode(mode){
 		$("#run_switch").removeClass("switch_selected");
 		$("#set_ui").show();
 		$("#run_ui").hide();
+		enter_set();
 	}else{
 		$("#run_switch").addClass("switch_selected");
 		$("#set_switch").removeClass("switch_selected");
 		$("#run_ui").show();
 		$("#set_ui").hide();
+		enter_run();
 	}
 }
 
@@ -45,5 +47,20 @@ function init(){
 	});
 	$("#run_switch").click(function(){
 		switch_mode("run");
+	});
+	$("#run_toggle").click(function(){
+		if(run_toggle_mode == "start"){
+			run_toggle_mode = "pause";
+			$("#run_toggle").val("pause");
+			start_run();
+		}else if(run_toggle_mode == "pause"){
+			$("#run_toggle").val("resume");
+			run_toggle_mode = "resume";
+			pause_run();
+		}else if(run_toggle_mode == "resume"){
+			$("#run_toggle").val("pause");
+			run_toggle_mode = "pause";
+			resume_run();
+		}
 	});
 }

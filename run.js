@@ -1,15 +1,58 @@
 var running = false;
 var current_frame = 0;
 var MAX_FRAME = 100;
+var alive_pieces = new Array();
+var dead_pieces = new Array();
+var run_counter = 0;
+var run_toggle_mode = "start";
+
+function load_test_pieces(){
+	var newPiece = new Pawn();
+	newPiece.x = 200;
+	newPiece.y = 200;
+	newPiece.direction = 45;
+	putPiece(newPiece, "up");
+	newPiece = new Pawn();
+	newPiece.x = 200;
+	newPiece.y = 400;
+	newPiece.direction = -30;
+	putPiece(newPiece, "down");
+}
+
+function load_pieces(){
+	load_test_pieces();
+}
+
+function enter_run(){
+	load_pieces();
+	clear_board();
+	redraw_run_board();
+}
 
 function start_run(){
+	running = true;
+	run_counter = 0;
+	window.setTimeout("tick()", 200);
+}
+
+function pause_run(){
+	running = false;
+}
+
+function resume_run(){
+	running = true;
 	window.setTimeout("tick()", 200);
 }
 
 function tick(){
-	update_all();
-	redraw_run_board();
-	window.setTimeout("tick()", 200);
+	//console.log("tick: " + run_counter);
+	if(running){
+		update_all();
+		redraw_run_board();
+		run_counter++;
+		$("#run_counter").val(run_counter);
+		window.setTimeout("tick()", 200);
+	}
 }
 
 function update_all(){
@@ -17,5 +60,18 @@ function update_all(){
 }
 
 function redraw_run_board(){
-	
+	clear_board(c);
+	var c = $("#run_board")[0].getContext("2d");
+	//console.log("draw alive");
+	for(var i=0;i<alive_pieces.length;i++){
+		draw_piece(c, alive_pieces[i]);
+	}
+}
+
+function clear_board(){
+	var c = $("#run_board")[0].getContext("2d");
+	c.save();
+	c.fillStyle = "#8c8";
+	c.fillRect(0, 0, conf.run_board.width, conf.run_board.height);
+	c.restore();
 }
