@@ -5,17 +5,18 @@ var alive_pieces = new Array();
 var dead_pieces = new Array();
 var run_counter = 0;
 var run_toggle_mode = "start";
+var tick_interval = 50;
 
 function load_test_pieces(){
 	var newPiece = new Pawn();
 	newPiece.x = 200;
 	newPiece.y = 200;
-	newPiece.direction = 45;
+	newPiece.direction = 180;
 	putPiece(newPiece, "up");
 	newPiece = new Pawn();
 	newPiece.x = 200;
 	newPiece.y = 400;
-	newPiece.direction = -30;
+	newPiece.direction = 0;
 	putPiece(newPiece, "down");
 }
 
@@ -32,7 +33,7 @@ function enter_run(){
 function start_run(){
 	running = true;
 	run_counter = 0;
-	window.setTimeout("tick()", 200);
+	window.setTimeout("tick()", tick_interval);
 }
 
 function pause_run(){
@@ -41,7 +42,7 @@ function pause_run(){
 
 function resume_run(){
 	running = true;
-	window.setTimeout("tick()", 200);
+	window.setTimeout("tick()", tick_interval);
 }
 
 function tick(){
@@ -51,12 +52,14 @@ function tick(){
 		redraw_run_board();
 		run_counter++;
 		$("#run_counter").val(run_counter);
-		window.setTimeout("tick()", 200);
+		window.setTimeout("tick()", tick_interval);
 	}
 }
 
 function update_all(){
-	
+	for(var i=0;i<alive_pieces.length;i++){
+		alive_pieces[i].tick();
+	}
 }
 
 function redraw_run_board(){
