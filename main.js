@@ -1,19 +1,4 @@
-var conf;
 var current_mode = "set";
-
-function load_config(){
-	console.log("load config");
-	conf = {
-	'set_board': {
-		width: 300,
-		height: 300
-	},
-	'run_board': {
-		width: 400,
-		height: 600
-	},
-};
-}
 
 $(init);
 
@@ -41,6 +26,8 @@ function init(){
 	$("#set_board").attr("height", conf.set_board.height);
 	$("#run_board").attr("width", conf.run_board.width);
 	$("#run_board").attr("height", conf.run_board.height);
+	$("#run_progress").css("width", conf.run_board.width);
+	load_piece_list();
 	switch_mode("set");
 	$("#set_switch").click(function(){
 		switch_mode("set");
@@ -63,4 +50,17 @@ function init(){
 			resume_run();
 		}
 	});
+	$("#run_reset").click(function(){
+		enter_run();
+	});
+	$("#set_board").click(function(e){
+		set_board_click(e.offsetX, e.offsetY);
+	});
+	$("#set_board").dblclick(function(e){
+		set_board_dblclick(e.offsetX, e.offsetY);
+	});
+	$("#save_zhen").click(set_save_zhen);
+	$("#saved_zhen_list").click(zhen_list_selected);
 }
+
+console.log("main.js loaded");

@@ -1,3 +1,7 @@
+body {
+	text-align: center;
+}
+
 .board {
 	border-style: solid;
 	border-width: 3;
@@ -9,6 +13,7 @@
 	border-style: solid;
 	border-width: 5;
 	border-color: #CCC;
+	display: inline-block;
 }
 
 #switch_div {
@@ -29,4 +34,89 @@
 	font-size: x-large;
 	text-decoration: bold;
 	cursor: default;
+}
+
+#run_counter {
+	text-align: center;
+}
+
+#piece_board {
+	display: inline-block;
+	border-style: solid;
+	border-width: 2;
+	border-color: #CCC;
+	padding: 5;
+	margin: 2;
+	text-align: left;
+	overflow-y: auto;
+}
+
+#strategy_board {
+	display: inline-block;
+	border-style: solid;
+	border-width: 2;
+	border-color: #CCC;
+	padding: 5;
+	margin: 2;
+}
+
+.piece_icon {
+	border-style: solid;
+	border-width: 1;
+	border-color: #000;
+}
+
+.piece_select_div {
+	display: inline-block;
+	cursor: pointer;
+	margin: 3;
+	text-align: center;
+}
+
+#set_result{
+	display: block;
+	border-style: solid;
+	border-width: 2;
+	border-color: #CCC;
+	text-align: center;
+}
+
+.piece_title {
+	display: block;
+	font-size: 12;
+	
+}
+
+.piece_selected {
+	border-style: solid;
+	border-width: 2;
+	border-color: #F00;
+}
+
+.piece_unselected {
+	border-style: solid;
+	border-width: 2;
+	border-color: #FFF;
+}
+
+#set_message {
+	display: block;
+	color: #F00;
+	font-size: 16;
+	text-align: center;
+}
+
+.set_info {
+	display: block;
+	border-style: none;
+	text-align: left;
+}
+
+.piece_info_key {
+	background-color: #FCC;
+	font-weight: bold;
+}
+
+.piece_info_value {
+	background-color: #CFC;
 }

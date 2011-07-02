@@ -6,7 +6,13 @@
 		<script src="piece.js"></script>
 		<script src="set.js"></script>
 		<script src="run.js"></script>
+		<script src="search.js"></script>
+		<script src="tools.js"></script>
 		<script src="piece_pawn.js"></script>
+		<script src="piece_shield.js"></script>
+		<script src="conf.js"></script>
+		<script src="zhen.js"></script>
+		<script src="piece_db.js"></script>
 	</head>
 	<body>
 		<div id="switch_div">
@@ -14,11 +20,90 @@
 			<div id="run_switch" class="switch">Run</div>
 		</div>
 		<div id="set_ui" class="ui">
-			<canvas id="set_board" class="board">Browser does not support Canvas.</canvas>
+			<table border="0">
+				<tr>
+					<td>
+						<div id="piece_board">
+						</div>
+					</td>
+					<td>
+						<canvas id="set_board" class="board">Browser does not support Canvas.</canvas>
+					</td>
+					<td>
+						<div id="strategy_board">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<div id="set_result">
+							<table border="0" width="100%">
+								<tr>
+									<td width="30%">
+										<div id="piece_info" class="set_info">
+											<table border="1">
+												<tr id="piece_info_name">
+													<td>Name</td>
+													<td></td>
+												</tr>
+												<tr id="piece_info_health">
+													<td>Health</td>
+													<td></td>
+												</tr>
+												<tr id="piece_info_atk">
+													<td>ATK</td>
+													<td></td>
+												</tr>
+												<tr id="piece_info_def">
+													<td>DEF</td>
+													<td></td>
+												</tr>
+												<tr id="piece_info_speed">
+													<td>Speed</td>
+													<td></td>
+												</tr>
+												<tr id="piece_info_accuracy">
+													<td>Accuracy</td>
+													<td></td>
+												</tr>
+												<tr id="piece_info_agility">
+													<td>Agility</td>
+													<td></td>
+												</tr>
+												<tr id="piece_info_range">
+													<td>Range</td>
+													<td></td>
+												</tr>
+												<tr id="piece_info_cost">
+													<td>Cost</td>
+													<td></td>
+												</tr>
+											</table>
+										</div>
+									</td>
+									<td valign="top" align="center">
+										<div id="set_message"></div>
+										<input type="text" value="" placeholder="enter name of zhen" size="20" id="new_zhen_name">
+										<input type="button" value="Save Zhen" id="save_zhen">
+										<br>
+										<select id="saved_zhen_list" style="width: 300px;" size="8">
+										</select>
+									</td>
+									<td width="30%">
+										<div id="ability_info" class="set_info">
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
 		</div>
 		<div id="run_ui" class="ui">
+			<input type=text value="" id="run_counter" size=3 readonly="true"><br>
+			<progress id="run_progress" max="100" value="0"></progress><br>
 			<canvas id="run_board" class="board">Browser does not support Canvas.</canvas><br>
-			<input type=text value="" id="run_counter" size=3 readonly="true">
 			<input type=button value="reset" id="run_reset">
 			<input type=button value="start" id="run_toggle">
 		</div>
