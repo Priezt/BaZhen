@@ -6,6 +6,8 @@ var run_counter = 0;
 var max_counter = 300;
 var run_toggle_mode = "start";
 var tick_interval = 50;
+var up_zhen_name = "";
+var down_zhen_name = "";
 
 function load_test_pieces(){
 	var newPiece;
@@ -35,19 +37,84 @@ function load_test_pieces(){
 	putPiece(newPiece, "down");
 }
 
+function load_selected_zhen(){
+	if(up_zhen_name != ""){
+		var z = JSON.parse(localStorage["zhen_" + up_zhen_name]);
+		for(var i=0;i<z.pieces.length;i++){
+			var p = z.pieces[i];
+			var new_piece = eval("new "+p.type+"()");
+			new_piece.classname = p.type;
+			new_piece.x = p.x;
+			new_piece.y = p.y;
+			putPiece(new_piece, "up");
+		}
+	}
+	if(down_zhen_name != ""){
+		var z = JSON.parse(localStorage["zhen_" + down_zhen_name]);
+		for(var i=0;i<z.pieces.length;i++){
+			var p = z.pieces[i];
+			var new_piece = eval("new "+p.type+"()");
+			new_piece.classname = p.type;
+			new_piece.x = p.x;
+			new_piece.y = p.y;
+			putPiece(new_piece, "down");
+		}
+	}
+}
+
 function load_pieces(){
 	alive_pieces = new Array();
 	dead_pieces = new Array();
-	load_test_pieces();
+	load_selected_zhen();
+	//load_test_pieces();
+}
+
+function up_zhen_select_list_click(){
+	up_zhen_name = $("#up_zhen").val();
+	console.log("up zhen changed to: " + up_zhen_name);
+	enter_run();
+}
+
+function down_zhen_select_list_click(){
+	down_zhen_name = $("#down_zhen").val();
+	console.log("down zhen changed to: " + down_zhen_name);
+	enter_run();
+}
+
+function load_zhen_select_list_in_run(){
+	var zlist = new Array();
+	if(localStorage["zhen_list"]){
+		zlist = JSON.parse(localStorage["zhen_list"]);
+	}
+	$("#up_zhen").empty();
+	$("#down_zhen").empty();
+	$("#up_zhen").append($("<option value=\"\">----</option>"));
+	for(var i=0;i<zlist.length;i++){
+		var opt = $("<option></option>");
+		opt.val(zlist[i]);
+		opt.text(zlist[i]);
+		$("#up_zhen").append(opt);
+	}
+	$("#down_zhen").append($("<option value=\"\">----</option>"));
+	for(var i=0;i<zlist.length;i++){
+		var opt = $("<option></option>");
+		opt.val(zlist[i]);
+		opt.text(zlist[i]);
+		$("#down_zhen").append(opt);
+	}
+	$("#up_zhen").val(up_zhen_name);
+	$("#down_zhen").val(down_zhen_name);
 }
 
 function enter_run(){
+	console.log("enter run");
 	run_counter = 0;
 	run_toggle_mode = "start";
 	$("#run_toggle").val("start");
 	$("#run_counter").val(run_counter);
 	$("#run_progress").val(0);
 	$("#run_toggle").show();
+	load_zhen_select_list_in_run();
 	pause_run();
 	load_pieces();
 	clear_board();

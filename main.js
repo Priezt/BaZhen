@@ -61,6 +61,9 @@ function init(){
 	});
 	$("#save_zhen").click(set_save_zhen);
 	$("#saved_zhen_list").click(zhen_list_selected);
+	$("#table_of_zhen_selector").css("width", conf.run_board.width);
+	$("#up_zhen").change(up_zhen_select_list_click);
+	$("#down_zhen").change(down_zhen_select_list_click);
 }
 
 console.log("main.js loaded");

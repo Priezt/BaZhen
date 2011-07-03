@@ -27,6 +27,7 @@ function Piece(){
 	this.critical_rate = 0;
 	this.range = 0;
 	this.cost = 0;
+	this.feature = [];
 	// functions
 	this.draw = function(c){};
 	this.tick = function(){
@@ -85,8 +86,8 @@ function Piece(){
 		}
 		target.on_damage = true;
 		var damage = source_atk - target_def;
-		if(damage <= 0){
-			damage = 0;
+		if(damage <= 1){
+			damage = 1;
 		}
 		if(Math.random() <= this.critical_rate){
 			damage *= this.critical_damage_rate;

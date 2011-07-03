@@ -1,7 +1,8 @@
 var piece_list = new Array();
 var piece_classname_list = [
 	'Pawn',
-	'Shield'
+	'Shield',
+	'Captain'
 ];
 
 function load_piece_list(){

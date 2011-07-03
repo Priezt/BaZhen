@@ -7,8 +7,17 @@ function enter_set(){
 	pieces_set = new Array();
 	set_control_board();
 	fill_in_piece_board();
+	add_general_piece();
 	redraw_set_board();
 	update_zhen_list();
+}
+
+function add_general_piece(){
+	var gp = new General();
+	gp.x = conf.set_board.width / 2;
+	gp.y = conf.set_board.height / 2;
+	gp.classname = "General";
+	pieces_set.push(gp);
 }
 
 function is_empty_on_set_board(x, y, rds){
@@ -51,7 +60,7 @@ function set_board_click(x, y){
 
 function set_board_dblclick(x, y){
 	var idx = is_empty_on_set_board(x, y, 0);
-	if(idx >= 0){
+	if(idx >= 0 && pieces_set[idx].classname != "General"){
 		pieces_set.splice(idx, 1);
 		redraw_set_board();
 	}
@@ -130,7 +139,7 @@ function save_one_zhen(zn){
 	};
 	for(var i=0;i<pieces_set.length;i++){
 		var x = pieces_set[i].x - (conf.set_board.width / 2);
-		var y = pieces_set[i].y - (conf.set_board.height / 2);
+		var y = -(pieces_set[i].y - (conf.set_board.height / 2));
 		zhen.pieces.push({
 			'x': x,
 			'y': y,
@@ -153,7 +162,7 @@ function load_zhen_by_name(zn){
 		var new_piece = eval("new " + zhen.pieces[i].type + "()");
 		new_piece.classname = zhen.pieces[i].type;
 		new_piece.x = (conf.set_board.width / 2) + zhen.pieces[i].x;
-		new_piece.y = (conf.set_board.height / 2) + zhen.pieces[i].y;
+		new_piece.y = (conf.set_board.height / 2) - zhen.pieces[i].y;
 		pieces_set.push(new_piece);
 	}
 }
