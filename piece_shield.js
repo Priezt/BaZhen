@@ -12,6 +12,7 @@ function Shield(){
 	this.critical_rate = 0.2;
 	this.range = 20;
 	this.cost = 5;
+	this.feature = [];
 	this.draw = function(c){
 		c.beginPath();
 		c.moveTo(-10,-10);
@@ -26,6 +27,6 @@ function Shield(){
 		c.fill();
 		c.stroke();
 	};
-	this.charge = charge;
+	this.learn(['charge']);
 }
 Shield.prototype = new Piece();

@@ -1,3 +1,6 @@
+var search_nearest_target = null;
+var search_nearest_distance_pow = 99999999;
+
 function is_alive(target){
 	if(! target.alive){
 		return false;
@@ -41,6 +44,26 @@ function is_in_view(target, source){
 		return true;
 	}
 	return false;
+}
+
+function has_feature(target, feature_name){
+	if(target.feature.indexOf(feature_name) >= 0){
+		return true;
+	}
+	return false;
+}
+
+function check_nearest(target, source){
+	var dist_pow = Math.pow(target.x - source.x, 2) + Math.pow(target.y - source.y, 2);
+	if(dist_pow < search_nearest_distance_pow){
+		search_nearest_distance_pow = dist_pow;
+		search_nearest_target = target;
+	}
+}
+
+function get_nearest(){
+	search_nearest_distance_pow = 99999999;
+	return search_nearest_target;
 }
 
 console.log("search.js loaded");

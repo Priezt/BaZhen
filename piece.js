@@ -36,69 +36,14 @@ function Piece(){
 		}
 		this.cooldown--;
 	};
-	this.move = function(tx, ty){
-		//console.log("move");
-		if(tx < 0){
-			tx = 0;
+	this.learn = function(abilities){
+		for(var i=0;i<abilities.length;i++){
+			var ability_name = abilities[i];
+			var eval_str = "this."+ability_name+" = "+ability_name+";";
+			eval(eval_str);
 		}
-		if(tx >= conf.run_board.width){
-			tx = conf.run_board.width - 1;
-		}
-		if(ty < 0){
-			ty = 0;
-		}
-		if(ty >= conf.run_board.height){
-			ty = conf.run_board.height - 1;
-		}
-		if(isEmpty(tx, ty, this)){
-			//console.log("move success");
-			this.x = tx;
-			this.y = ty;
-		}
-	};
-	this.attack = function(target){
-		var bonus = get_direction_bonus(this, target);
-		var source_atk = this.atk + this.morale;
-		if(source_atk < 0){
-			source_atk = 0;
-		}
-		var target_def = target.def + target.morale;
-		if(target_def < 0){
-			target_def = 0;
-		}
-		target_def = target_def / bonus;
-		var source_accuracy = this.accuracy + this.morale;
-		if(source_accuracy < 0){
-			source_accuracy = 0;
-		}
-		var target_agility = target.agility + target.morale;
-		if(target_agility < 0){
-			target_agility = 0;
-		}
-		target_agility = target_agility / bonus;
-		var hit_total = source_accuracy + target_agility;
-		if(hit_total <= 0){
-			return;
-		}
-		if(Math.random() > (source_accuracy / hit_total)){
-			//console.log("miss");
-			return;
-		}
-		target.on_damage = true;
-		var damage = source_atk - target_def;
-		if(damage <= 1){
-			damage = 1;
-		}
-		if(Math.random() <= this.critical_rate){
-			damage *= this.critical_damage_rate;
-		}
-		target.health -= damage;
-		if(target.health <= 0){
-			target.alive = false;
-		}
-	};
-	this.forward = forward;
-	this.offend = offend;
+	}
+	this.learn(['attack', 'forward', 'offend', 'move']);
 }
 
 function get_direction_bonus(source, target){
@@ -243,6 +188,92 @@ function charge(){
 		return;
 	}
 	this.forward();
+}
+
+function attack(target){
+	var bonus = get_direction_bonus(this, target);
+	var source_atk = this.atk + this.morale;
+	if(source_atk < 0){
+		source_atk = 0;
+	}
+	var target_def = target.def + target.morale;
+	if(target_def < 0){
+		target_def = 0;
+	}
+	target_def = target_def / bonus;
+	var source_accuracy = this.accuracy + this.morale;
+	if(source_accuracy < 0){
+		source_accuracy = 0;
+	}
+	var target_agility = target.agility + target.morale;
+	if(target_agility < 0){
+		target_agility = 0;
+	}
+	target_agility = target_agility / bonus;
+	var hit_total = source_accuracy + target_agility;
+	if(hit_total <= 0){
+		return;
+	}
+	if(Math.random() > (source_accuracy / hit_total)){
+		//console.log("miss");
+		return;
+	}
+	target.on_damage = true;
+	var damage = source_atk - target_def;
+	if(damage <= 1){
+		damage = 1;
+	}
+	if(Math.random() <= this.critical_rate){
+		damage *= this.critical_damage_rate;
+	}
+	target.health -= damage;
+	if(target.health <= 0){
+		target.alive = false;
+	}
+};
+
+function move(tx, ty){
+	//console.log("move");
+	if(tx < 0){
+		tx = 0;
+	}
+	if(tx >= conf.run_board.width){
+		tx = conf.run_board.width - 1;
+	}
+	if(ty < 0){
+		ty = 0;
+	}
+	if(ty >= conf.run_board.height){
+		ty = conf.run_board.height - 1;
+	}
+	if(isEmpty(tx, ty, this)){
+		//console.log("move success");
+		this.x = tx;
+		this.y = ty;
+	}
+};
+
+function defend(){
+	this.offend();
+}
+
+function protect(){
+	//console.log("protect");
+	for(var i=0;i<alive_pieces.length;i++){
+		var p = alive_pieces[i];
+		if(is_ally(p, this) && has_feature(p, 'leader')){
+			check_nearest(p, this);
+		}
+	}
+	var np = get_nearest();
+	if(np){
+		//console.log("found leader");
+		var new_direction = get_relative_angle(np, this) * 180 / Math.PI;
+		this.direction = new_direction;
+	}else{
+		//console.log("not found leader");
+	}
+	this.defend();
 }
 
 console.log("pieces.js loaded");

@@ -1,5 +1,5 @@
 function Pawn(){
-	this.command = "charge";
+	this.command = "protect";
 	this.name = "pawn";
 	this.full_health = 100;
 	this.atk = 20;
@@ -12,6 +12,7 @@ function Pawn(){
 	this.critical_rate = 0.2;
 	this.range = 20;
 	this.cost = 5;
+	this.feature = [];
 	this.draw = function(c){
 		c.beginPath();
 		c.moveTo(0,-10);
@@ -23,6 +24,6 @@ function Pawn(){
 		c.fill();
 		c.stroke();
 	};
-	this.charge = charge;
+	this.learn(['charge', 'defend', 'protect']);
 }
 Pawn.prototype = new Piece();

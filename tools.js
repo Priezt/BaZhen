@@ -9,4 +9,9 @@ function minus_angle(ang1, ang2){
 	return Math.abs(ang_dist);
 }
 
+function get_relative_angle(source, target){
+	var ang = Math.atan2(target.x - source.x, -(target.y - source.y));
+	return ang;
+}
+
 console.log("tools.js loaded");

@@ -1,5 +1,5 @@
 function Captain(){
-	this.command = "charge";
+	this.command = "defend";
 	this.name = "captain";
 	this.full_health = 200;
 	this.atk = 20;
@@ -24,7 +24,6 @@ function Captain(){
 		c.fill();
 		c.stroke();
 	};
-	this.direct = direct;
-	this.charge = charge;
+	this.learn(['charge', 'defend']);
 }
 Captain.prototype = new Piece();

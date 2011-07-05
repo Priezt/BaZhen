@@ -31,7 +31,7 @@ function General(){
 		c.fill();
 		c.stroke();
 	};
-	this.direct = direct;
+	this.learn(['direct']);
 }
 General.prototype = new Piece();
 
